@@ -1,0 +1,13 @@
+.login {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 50px;
+}
+.cardcontent {
+  display: flex;
+  flex-direction: column;
+}
+.actions {
+  justify-content: center;
+}
