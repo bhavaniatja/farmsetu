@@ -15,21 +15,23 @@ import CloseIcon from '@mui/icons-material/Close';
 import { blue } from '@mui/material/colors';
 const emails = ['username@gmail.com', 'user02@gmail.com'];
 
-function SimpleDialog(props) {
+function B2bDialog(props) {
     const { onClose, dataname, open, handleSubmit } = props;
     const [quantity, setQuantity] = useState("");
 
     const handleClose = () => {
         onClose();
     };
-
+    const handleCancel = () => {
+        onClose();
+    };
     return (
-        <Dialog onClose={handleClose} open={open}>
+        <Dialog open={open}>
             <DialogTitle>{dataname}
                 {onClose ? (
                     <IconButton
                         aria-label="close"
-                        onClick={onClose}
+                        onClick={handleCancel}
                         sx={{
                             position: 'absolute',
                             right: 8,
@@ -48,4 +50,4 @@ function SimpleDialog(props) {
         </Dialog>
     );
 }
-export default SimpleDialog;
+export default B2bDialog;

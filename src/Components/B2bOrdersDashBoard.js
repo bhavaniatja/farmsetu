@@ -18,7 +18,6 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { Grid } from '@mui/material';
-import JeevamrutCheck from './JeevamrutCheck';
 export default function B2bOrdersDashBoard() {
     const [user] = useAuthState(auth);
     const history = useHistory();

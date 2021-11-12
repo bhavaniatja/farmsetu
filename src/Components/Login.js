@@ -23,7 +23,7 @@ function Login() {
       history.push("/farmerdb");
       console.log(JSON.stringify(user.uid));
     }
-  }, [user]);
+  }, []);
   return (
     <div>
       <Box sx={{ flexGrow: 1 }}>

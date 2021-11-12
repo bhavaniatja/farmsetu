@@ -8,11 +8,14 @@ import Card from '@mui/material/Card';
 import { Toolbar, Typography, TextField, Alert, Container, Stack, FormHelperText } from '@mui/material';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
+import FarmerDialog from './FarmerDialog';
 import Box from "@mui/material/Box";
 function FarmerDashBoard() {
     const [products, setProducts] = useState([]);
+    const [dataname, setDataName] = useState("");
     const [orders, setOrders] = useState([]);
-    const [quantity, setQuantity] = useState("");
+    // const [quantity, setQuantity] = useState("");
+    const [open, setOpen] = useState(false);
     const [user] = useAuthState(auth);
     const history = useHistory();
     const signOut = () => {
@@ -35,13 +38,16 @@ function FarmerDashBoard() {
         setProducts(list);
         console.log(products);
     }, [user]);
-    const handleSubmit = (event, dataname) => {
+    const handleSubmit = (event, dataname, quantity) => {
         event.preventDefault();
-        const namez = dataname;
-        let newOrder = { name: namez, quantity: quantity }
-        setOrders([...orders, newOrder]);
+        console.log(quantity);
+        if (quantity != "") {
+            const namez = dataname;
+            let newOrder = { name: namez, quantity: quantity }
+            setOrders([...orders, newOrder]);
+        }
+        setOpen(false);
         console.log(orders);
-        setQuantity("");
     }
     const checkOut = async () => {
         let nn = JSON.parse(JSON.stringify(orders));
@@ -52,6 +58,15 @@ function FarmerDashBoard() {
             });
         setOrders("");
     }
+    const handleClickOpen = (event, dataname) => {
+        event.preventDefault();
+        setDataName(dataname);
+        setOpen(true);
+    };
+
+    const handleClose = () => {
+        setOpen(false);
+    };
     return (
         <div>
             <Box sx={{ flexGrow: 1 }}>
@@ -75,16 +90,20 @@ function FarmerDashBoard() {
                                 </Typography>
                             </CardContent>
                             <CardActions style={{ display: 'flex', flexDirection: 'column' }}>
-                                <TextField value={quantity} label="Enter Quantity(KGs)" name={data.name}
-                                    onChange={(ev) => setQuantity(ev.target.value)}
-                                    variant="filled" color="success" margin="normal" />
-                                <Button variant='contained' color="primary" onClick={(ev) => handleSubmit(ev, data.name)} >Submit</Button>
+
+                                <Button variant='contained' color="primary" onClick={(ev) => handleClickOpen(ev, data.name)} >Enter Quantity</Button>
                             </CardActions>
                         </Card>
                     ))}
                 </Stack>
             </Container>
             <Container style={{ position: 'fixed', bottom: 1, display: 'flex', alignItems: 'center' }}>
+                <FarmerDialog
+                    open={open}
+                    onClose={handleClose}
+                    handleSubmit={handleSubmit}
+                    dataname={dataname}
+                />
                 <Button fullWidth={true} variant="contained" onClick={() => checkOut()}>CheckOut</Button>
             </Container>
         </div >
