@@ -33,7 +33,7 @@ function JeevamrutCheck({ loading, finalpush, handleSubmit }) {
                                                 <TableCell align="right">Quantity</TableCell>
                                             </TableRow>
                                         </TableHead>
-                                        {finpush.orders.map((finpushorders, key) => (
+                                        {finpush.orders[0].map((finpushorders, key) => (
                                             <TableBody key={key}>
                                                 <TableRow>
                                                     <TableCell component="th" scope="row">

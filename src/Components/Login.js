@@ -20,7 +20,7 @@ function Login() {
 
   useEffect(() => {
     if (user) {
-      history.push("/dashboard");
+      history.push("/farmerdb");
       console.log(JSON.stringify(user.uid));
     }
   }, [user]);
@@ -28,10 +28,11 @@ function Login() {
     <div>
       <Box sx={{ flexGrow: 1 }}>
         <AppBar position="static">
-          <Toolbar variant="dense" style={{ backgroundColor: '#2E3B55' }}>
+          <Toolbar variant="dense" style={{ backgroundColor: '#2E3B55', display: 'flex', justifyContent: 'space-between' }}>
             <Typography variant="h6" color="inherit">
               Jeevamrut
             </Typography>
+            <Link style={{ color: "white", }} to="/b2bregister">B2B Register</Link>
           </Toolbar>
         </AppBar>
       </Box>

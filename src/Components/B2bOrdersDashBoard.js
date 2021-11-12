@@ -19,7 +19,7 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { Grid } from '@mui/material';
 import JeevamrutCheck from './JeevamrutCheck';
-export default function JeevamrutDashBoard() {
+export default function B2bOrdersDashBoard() {
     const [user] = useAuthState(auth);
     const history = useHistory();
     // const [username, setUserName] = useState("");
@@ -33,7 +33,7 @@ export default function JeevamrutDashBoard() {
     let lastpush = [];
     let username = "";
     const pushName = async (uid, orderspush) => {
-        await firestore.collection('users').get().then(querySnapshot => {
+        await firestore.collection('b2busers').get().then(querySnapshot => {
             console.log('Users ', querySnapshot.size);
             querySnapshot.forEach(documentSnapshot => {
                 console.log(uid);
@@ -47,7 +47,7 @@ export default function JeevamrutDashBoard() {
         });
     }
     useEffect(async () => {
-        const unsubscribe = await firestore.collection('farmerorders').get()
+        const unsubscribe = await firestore.collection('b2borders').get()
             .then(snapshot => {
                 snapshot.docs.forEach(doc => {
                     // console.log(doc.id);
@@ -82,7 +82,7 @@ export default function JeevamrutDashBoard() {
                         <Typography variant="h6" color="inherit">
                             Jeevamrut
                         </Typography>
-                        <Link style={{ color: "white" }} to="/b2borders">B2B Orders</Link>
+                        <Link style={{ color: "white" }} to="/jeevamrutdb">Farm Produce</Link>
                         <Button variant='contained' color="secondary" onClick={signOut}>Logout</Button>
                     </Toolbar>
                 </AppBar>

@@ -12,7 +12,7 @@ import "./Login.css"
 import { TextField } from "@mui/material";
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
-function Register() {
+function B2bRegister() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [name, setName] = useState("");
@@ -26,28 +26,20 @@ function Register() {
     useEffect(() => {
         if (user) {
             createUserDocument(user, name);
-            history.push("/farmerdb");
+            history.push("/b2bdb");
             console.log(JSON.stringify(user.uid));
         }
     }, [user]);
     const createUserDocument = async (user, name) => {
         if (!user) return;
-        const userRef = firestore.doc(`users/${user.uid}`);
-        const orderRef = firestore.doc(`farmerorders/${user.uid}`);
+        const userRef = firestore.doc(`b2busers/${user.uid}`);
         const b2bRef = firestore.doc(`b2borders/${user.uid}`);
         const snapshot = await userRef.get();
-        // if (!snapshot.exists) {
-        //     const  email  = user;
-        //     const  displayName  = name;
-        // }
         try {
             userRef.set({
                 displayName: name,
                 email: user.email,
                 createdAt: new Date(),
-            })
-            orderRef.set({
-                orders: orders
             })
             b2bRef.set({
                 orders: orders
@@ -61,7 +53,7 @@ function Register() {
         <div>
             <Box sx={{ flexGrow: 1 }}>
                 <AppBar position="static">
-                    <Toolbar variant="dense" style={{ backgroundColor: '#2E3B55' }}>
+                    <Toolbar variant="dense" >
                         <Typography variant="h6" color="inherit">
                             Jeevamrut
                         </Typography>
@@ -102,4 +94,4 @@ function Register() {
         </div>
     );
 }
-export default Register;
+export default B2bRegister;

@@ -9,7 +9,7 @@ import { Toolbar, Typography, TextField, Alert, Container, Stack, FormHelperText
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import Box from "@mui/material/Box";
-function FarmerDashBoard() {
+function B2bDashBoard() {
     const [products, setProducts] = useState([]);
     const [orders, setOrders] = useState([]);
     const [quantity, setQuantity] = useState("");
@@ -46,7 +46,7 @@ function FarmerDashBoard() {
     const checkOut = async () => {
         let nn = JSON.parse(JSON.stringify(orders));
         console.log(nn);
-        await firestore.collection('farmerorders').doc(user.uid)
+        await firestore.collection('b2borders').doc(user.uid)
             .update({
                 orders: orders
             });
@@ -64,7 +64,7 @@ function FarmerDashBoard() {
                     </Toolbar>
                 </AppBar>
             </Box>
-            <Alert severity="info" style={{ display: 'flex', justifyContent: 'center' }}>Confirm Your Produce for xx/xx/xx</Alert>
+            <Alert severity="info" style={{ display: 'flex', justifyContent: 'center' }}>Confirm Your Orders before xx/xx/xx</Alert>
             <Container style={{ display: 'flex', justifyContent: 'center', marginTop: '20' }}>
                 <Stack spacing={2}>
                     {products && products.map((data, key) => (
@@ -75,7 +75,7 @@ function FarmerDashBoard() {
                                 </Typography>
                             </CardContent>
                             <CardActions style={{ display: 'flex', flexDirection: 'column' }}>
-                                <TextField value={quantity} label="Enter Quantity(KGs)" name={data.name}
+                                <TextField label="Enter Quantity(KGs)" name={data.name}
                                     onChange={(ev) => setQuantity(ev.target.value)}
                                     variant="filled" color="success" margin="normal" />
                                 <Button variant='contained' color="primary" onClick={(ev) => handleSubmit(ev, data.name)} >Submit</Button>
@@ -91,6 +91,6 @@ function FarmerDashBoard() {
     )
 }
 
-export default FarmerDashBoard
+export default B2bDashBoard
 //https://medium.com/codex/how-to-use-array-in-reactjs-2a30d8b72503
 //https://stackoverflow.com/questions/57691920/how-to-push-an-object-in-array-field-using-firebase-db
