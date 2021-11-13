@@ -23,6 +23,9 @@ function FarmerDashBoard() {
         history.replace("/login");
     }
     useEffect(async () => {
+        if (!user) {
+            signOut();
+        }
         let list = [];
         await firestore.collection('commodities').get().then(querySnapshot => {
             console.log('Total Commodities ', querySnapshot.size);
@@ -38,12 +41,15 @@ function FarmerDashBoard() {
         setProducts(list);
         console.log(products);
     }, [user]);
-    const handleSubmit = (event, dataname, quantity) => {
+    const handleSubmit = (event, dataname, quantity, farmName) => {
         event.preventDefault();
         console.log(quantity);
         if (quantity != "") {
             const namez = dataname;
-            let newOrder = { name: namez, quantity: quantity }
+            let newOrder = {
+                name: namez, quantity: quantity,
+                farmName: farmName, createdAt: new Date().toDateString(),
+            }
             setOrders([...orders, newOrder]);
         }
         setOpen(false);

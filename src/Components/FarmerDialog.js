@@ -18,7 +18,7 @@ const emails = ['username@gmail.com', 'user02@gmail.com'];
 function FarmerDialog(props) {
     const { onClose, dataname, open, handleSubmit } = props;
     const [quantity, setQuantity] = useState("");
-
+    const [farmName, setFarmName] = useState("");
     const handleClose = () => {
         onClose();
     };
@@ -46,7 +46,10 @@ function FarmerDialog(props) {
             <TextField label="Enter Quantity(KGs)" name={dataname}
                 onChange={(ev) => setQuantity(ev.target.value)}
                 variant="filled" color="success" margin="normal" />
-            <Button variant='contained' color="primary" onClick={(ev) => handleSubmit(ev, dataname, quantity)} >Submit</Button>
+            <TextField label="Enter Farm Name:" name={dataname}
+                onChange={(ev) => setFarmName(ev.target.value)}
+                variant="filled" color="success" margin="normal" />
+            <Button variant='contained' color="primary" onClick={(ev) => handleSubmit(ev, dataname, quantity, farmName)} >Submit</Button>
         </Dialog>
     );
 }

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useHistory, Link } from "react-router-dom";
-import { auth, signInWithEmailAndPassword } from "../firebase";
+import { auth } from "../firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 import AppBar from '@mui/material/AppBar';
 import Button from '@mui/material/Button';
@@ -17,13 +17,21 @@ function Login() {
   const [password, setPassword] = useState("");
   const [user] = useAuthState(auth);
   const history = useHistory();
-
+  const signInWithEmailAndPassword = async (email, password) => {
+    try {
+      await auth.signInWithEmailAndPassword(email, password);
+      // alert("You are signedin");
+    } catch (err) {
+      console.error(err);
+      alert(err.message);
+    }
+  };
   useEffect(() => {
     if (user) {
-      history.push("/farmerdb");
+      history.replace("/farmerdb");
       console.log(JSON.stringify(user.uid));
     }
-  }, []);
+  }, [user]);
   return (
     <div>
       <Box sx={{ flexGrow: 1 }}>

@@ -6,7 +6,7 @@ import { auth, firestore } from "../firebase"
 import AppBar from '@mui/material/AppBar';
 import Button from '@mui/material/Button';
 import Card from '@mui/material/Card';
-import { Toolbar, Typography, TextField, Alert, Container, Stack, FormHelperText } from '@mui/material';
+import { Toolbar, Typography, TextField, Alert, Container, Stack, FormHelperText, Hidden } from '@mui/material';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import Box from "@mui/material/Box";
@@ -18,11 +18,13 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { Grid } from '@mui/material';
+import ReactHTMLTableToExcel from 'react-html-table-to-excel';
 export default function JeevamrutDashBoard() {
     const [user] = useAuthState(auth);
     const history = useHistory();
     // const [username, setUserName] = useState("");
     const [ordersdata, setOrdersData] = useState([]);
+    const [dummy, setDummy] = useState(false);
     let [loading, setLoading] = useState(false);
     const [finalpush, setFinalPush] = useState([]);
     const signOut = () => {
@@ -82,7 +84,13 @@ export default function JeevamrutDashBoard() {
                             Jeevamrut
                         </Typography>
                         <Link style={{ color: "white" }} to="/b2borders">B2B Orders</Link>
-                        <Button variant='contained' color="secondary" onClick={signOut}>Logout</Button>
+                        <ReactHTMLTableToExcel
+                            id="test-table-xls-button"
+                            className="download-table-xls-button"
+                            table="table-to-xls"
+                            filename="tablexls"
+                            sheet="tablexls"
+                            buttonText="Download as XLS" />
                     </Toolbar>
                 </AppBar>
             </Box>
@@ -100,6 +108,7 @@ export default function JeevamrutDashBoard() {
                                             <TableRow>
                                                 <TableCell>Commodity</TableCell>
                                                 <TableCell align="right">Quantity</TableCell>
+                                                <TableCell align="right">Farm Name</TableCell>
                                             </TableRow>
                                         </TableHead>
                                         {finpush.orders.map((finpushorders, key) => (
@@ -110,6 +119,9 @@ export default function JeevamrutDashBoard() {
                                                     </TableCell>
                                                     <TableCell align="right">
                                                         {finpushorders.quantity}
+                                                    </TableCell>
+                                                    <TableCell align="right">
+                                                        {finpushorders.farmName}
                                                     </TableCell>
                                                 </TableRow>
                                             </TableBody>
@@ -124,6 +136,30 @@ export default function JeevamrutDashBoard() {
                     </Grid>
                 ))}
             </Grid>
+            {/* {dummy && */}
+            <table id="table-to-xls" style={{ display: 'none' }}>
+                <tr>
+                    <th>Farmer Name</th>
+                    <th>Commodity</th>
+                    <th>Farm Name</th>
+                    <th>Quantity</th>
+                    <th>Created At</th>
+                </tr>
+                {finalpush && finalpush.map((finpush, key) => (
+                    <React.Fragment>
+                        {finpush.orders.map((finpushorders, key) => (
+                            <tr key={key}>
+                                <td>{finpush.name}</td>
+                                <td>{finpushorders.name}</td>
+                                <td>{finpushorders.farmName}</td>
+                                <td>{finpushorders.quantity}</td>
+                                <td>{finpushorders.createdAt}</td>
+                            </tr>
+                        ))}
+                    </React.Fragment>
+                ))}
+            </table>
+            {/* } */}
         </div>
     )
 }

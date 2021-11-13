@@ -16,6 +16,7 @@ export default app
 export const signInWithEmailAndPassword = async (email, password) => {
   try {
     await auth.signInWithEmailAndPassword(email, password);
+    // alert("You are signedin");
   } catch (err) {
     console.error(err);
     alert(err.message);
