@@ -136,7 +136,6 @@ export default function JeevamrutDashBoard() {
                     </Grid>
                 ))}
             </Grid>
-            {/* {dummy && */}
             <table id="table-to-xls" style={{ display: 'none' }}>
                 <tr>
                     <th>Farmer Name</th>
@@ -159,7 +158,6 @@ export default function JeevamrutDashBoard() {
                     </React.Fragment>
                 ))}
             </table>
-            {/* } */}
         </div>
     )
 }

@@ -11,6 +11,7 @@ import CardContent from '@mui/material/CardContent';
 import FarmerDialog from './FarmerDialog';
 import B2bDialog from './B2bDialog';
 import Box from "@mui/material/Box";
+import { AddShoppingCart } from '@mui/icons-material';
 function B2bDashBoard() {
     const [products, setProducts] = useState([]);
     const [dataname, setDataName] = useState("");
@@ -19,10 +20,15 @@ function B2bDashBoard() {
     const [open, setOpen] = useState(false);
     const [user] = useAuthState(auth);
     const history = useHistory();
-    const signOut = () => {
-        auth.signOut();
+    const signOut = async () => {
+        await auth.signOut();
         history.push("/login");
     }
+    // useEffect(() => {
+    //     if (!user) {
+    //         history.replace("/login");
+    //     }
+    // }, [user]);
     useEffect(async () => {
         let list = [];
         await firestore.collection('commodities').get().then(querySnapshot => {
@@ -80,8 +86,8 @@ function B2bDashBoard() {
                     </Toolbar>
                 </AppBar>
             </Box>
-            <Alert severity="info" style={{ display: 'flex', justifyContent: 'center' }}>Confirm Your Produce for xx/xx/xx</Alert>
-            <Container style={{ display: 'flex', justifyContent: 'center', marginTop: '20' }}>
+            <Alert severity="info" style={{ display: 'flex', justifyContent: 'center' }}>Confirm Your Produce for Wednesday/Saturday</Alert>
+            <Container style={{ display: 'flex', justifyContent: 'center', marginTop: 20, marginBottom: 30 }}>
                 <Stack spacing={2}>
                     {products && products.map((data, key) => (
                         <Card style={{ minWidth: 300 }} key={key}>
@@ -105,7 +111,10 @@ function B2bDashBoard() {
                     handleSubmit={handleSubmit}
                     dataname={dataname}
                 />
-                <Button fullWidth={true} variant="contained" onClick={() => checkOut()}>CheckOut</Button>
+                <Button fullWidth={true} variant="contained"
+                    onClick={() => checkOut()} endIcon={<AddShoppingCart />}>
+                    CheckOut
+                </Button>
             </Container>
         </div >
     )
