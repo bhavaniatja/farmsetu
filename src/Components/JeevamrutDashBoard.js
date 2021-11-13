@@ -153,7 +153,7 @@ export default function JeevamrutDashBoard() {
                                 <td>{finpushorders.name}</td>
                                 <td>{finpushorders.farmName}</td>
                                 <td>{finpushorders.quantity}</td>
-                                <td>{finpushorders.createdAt}</td>
+                                <td>{finpushorders.createdAt.toString()}</td>
                             </tr>
                         ))}
                     </React.Fragment>

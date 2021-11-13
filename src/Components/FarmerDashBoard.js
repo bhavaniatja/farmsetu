@@ -44,11 +44,13 @@ function FarmerDashBoard() {
     const handleSubmit = (event, dataname, quantity, farmName) => {
         event.preventDefault();
         console.log(quantity);
+        const timestamp = Date.now();
         if (quantity != "") {
             const namez = dataname;
             let newOrder = {
                 name: namez, quantity: quantity,
-                farmName: farmName, createdAt: new Date().toDateString(),
+                farmName: farmName,
+                createdAt: new Intl.DateTimeFormat('en-US', { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit' }).format(timestamp)
             }
             setOrders([...orders, newOrder]);
         }
