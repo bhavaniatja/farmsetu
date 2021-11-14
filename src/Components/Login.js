@@ -1,81 +1,122 @@
-import React, { useEffect, useState } from "react";
-import { useHistory, Link } from "react-router-dom";
-import { auth } from "../firebase";
-import { useAuthState } from "react-firebase-hooks/auth";
-import AppBar from '@mui/material/AppBar';
+import * as React from 'react';
+import {useEffect} from 'react';
 import Button from '@mui/material/Button';
-import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
-import CardContent from '@mui/material/CardContent';
-import Box from "@mui/material/Box";
-import "./Login.css"
-import { TextField } from "@mui/material";
-import Toolbar from '@mui/material/Toolbar';
+import CssBaseline from '@mui/material/CssBaseline';
+import TextField from '@mui/material/TextField';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Checkbox from '@mui/material/Checkbox';
+import Link from '@mui/material/Link';
+import Paper from '@mui/material/Paper';
+import Box from '@mui/material/Box';
+import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
-function Login() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [user] = useAuthState(auth);
-  const history = useHistory();
-  const signInWithEmailAndPassword = async (email, password) => {
-    try {
-      await auth.signInWithEmailAndPassword(email, password);
-      // alert("You are signedin");
-    } catch (err) {
-      console.error(err);
-      alert(err.message);
-    }
-  };
-  useEffect(() => {
-    if (user) {
-      history.replace("/farmerdb");
-      console.log(JSON.stringify(user.uid));
-    }
-  }, [user]);
+import {createTheme, ThemeProvider} from '@mui/material/styles';
+import {auth, signInWithEmailAndPassword} from "../firebase";
+import {useAuthState} from "react-firebase-hooks/auth";
+import {useHistory} from "react-router-dom";
+import logo from "./jeevamrut.png";
+import "./Login.css"
+
+function Copyright(props) {
   return (
-    <div>
-      <Box sx={{ flexGrow: 1 }}>
-        <AppBar position="static">
-          <Toolbar variant="dense" style={{ backgroundColor: '#2E3B55', display: 'flex', justifyContent: 'space-between' }}>
-            <Typography variant="h6" color="inherit">
-              Jeevamrut
-            </Typography>
-            <Link style={{ color: "white", }} to="/b2bregister">B2B Register</Link>
-          </Toolbar>
-        </AppBar>
-      </Box>
-      <Box className="login">
-        <Card className="login__container">
-          <CardContent className="cardcontent">
-            <TextField margin="dense" fullWidth
-              type="text"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              placeholder="E-mail Address"
-            />
-            <TextField fullWidth
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              placeholder="Password"
-            />
-          </CardContent>
-          <CardActions className="actions" style={{ display: 'flex', flexDirection: 'column' }}>
-            <Button variant="contained"
-              onClick={() => signInWithEmailAndPassword(email, password)}
-            >
-              Login
-            </Button>
-            <div>
-              <Link to="/register">SignUp</Link>
-            </div>
-            <div>
-              <Link to="/reset">Forgot Password</Link>
-            </div>
-          </CardActions>
-        </Card>
-      </Box>
-    </div>
+      <Typography variant="body2" color="text.secondary" align="center" {...props}>
+        {'Copyright © '}
+        <Link color="inherit" href="https://www.jeevamrut.in/">
+          Jeevamrut
+        </Link>{' '}
+        {new Date().getFullYear()}
+        {'.'}
+      </Typography>
   );
 }
-export default Login;
+
+function Logo() {
+  return <img src={logo} alt="Logo" className="cropped1"/>;
+}
+
+const theme = createTheme();
+
+export default function SignInSide() {
+  const [user] = useAuthState(auth);
+  const history = useHistory();
+  useEffect(() => {
+    if (user) history.replace("/dashboard");
+  }, [user]);
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const data = new FormData(event.currentTarget);
+    // eslint-disable-next-line no-console
+    const email = data.get('email');
+    const password = data.get('password');
+
+    signInWithEmailAndPassword(email, password)
+  };
+
+  return (
+      <ThemeProvider theme={theme}>
+        <Grid container component="main" sx={{height: '100vh'}}>
+          <CssBaseline/>
+          <Grid item xs={false} sm={4} md={7}
+                sx={{
+                  backgroundImage: 'url(https://source.unsplash.com/random)',
+                  backgroundRepeat: 'no-repeat',
+                  backgroundColor: (t) =>
+                      t.palette.mode === 'light' ? t.palette.grey[50] : t.palette.grey[900],
+                  backgroundSize: 'cover',
+                  backgroundPosition: 'center',
+                }}
+          />
+          <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
+            <Box sx={{
+              my: 8,
+              mx: 4,
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+            }}>
+              <Logo/>
+              <Typography component="h1" variant="h5">
+                Sign in
+              </Typography>
+              <Box component="form" noValidate onSubmit={handleSubmit} sx={{mt: 1}}>
+                <TextField
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="email"
+                    label="Email Address"
+                    name="email"
+                    autoComplete="email"
+                    autoFocus
+                />
+                <TextField
+                    margin="normal"
+                    required
+                    fullWidth
+                    name="password"
+                    label="Password"
+                    type="password"
+                    id="password"
+                    autoComplete="current-password"
+                />
+                <FormControlLabel
+                    control={<Checkbox value="remember" color="primary"/>}
+                    label="Remember me"
+                />
+                <Button
+                    type="submit"
+                    fullWidth
+                    variant="contained"
+                    sx={{mt: 3, mb: 2}}
+                >
+                  Sign In
+                </Button>
+                <Copyright sx={{mt: 5}}/>
+              </Box>
+            </Box>
+          </Grid>
+        </Grid>
+      </ThemeProvider>
+  );
+}
