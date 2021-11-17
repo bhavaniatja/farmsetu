@@ -3,20 +3,16 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@date-io/date-fns": "^1.3.13",
     "@emotion/react": "^11.5.0",
     "@emotion/styled": "^11.3.0",
-    "@mui/icons-material": "^5.1.0",
-    "@mui/material": "^5.0.4",
-    "@testing-library/jest-dom": "^5.11.4",
-    "@testing-library/react": "^11.1.0",
-    "@testing-library/user-event": "^12.1.10",
-    "bootstrap": "^5.1.3",
-    "firebase": "^9.1.3",
-    "react": "^17.0.2",
-    "react-bootstrap": "^1.6.4",
-    "react-dom": "^17.0.2",
+    "@material-ui/lab": "^4.0.0-alpha.60",
+    "@mui/x-data-grid": "^4.0.2",
+    "date-fns": "^2.25.0",
+    "firebase": "^9.4.1",
+    "material-table": "^1.59.0",
+    "react-avatar": "^3.10.0",
     "react-firebase-hooks": "^3.0.4",
-    "react-html-table-to-excel": "^2.0.0",
     "react-router-dom": "^5.3.0",
     "react-scripts": "4.0.3",
     "web-vitals": "^1.0.1"
@@ -44,5 +40,15 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@material-ui/core": "^4.12.3",
+    "@material-ui/icons": "^4.11.2",
+    "@material-ui/pickers": "^3.3.10",
+    "@mui/lab": "^5.0.0-alpha.54",
+    "@mui/material": "^5.1.0",
+    "axios": "^0.24.0",
+    "react": "^17.0.2",
+    "react-firebase-hooks": "^4.0.1"
   }
 }
