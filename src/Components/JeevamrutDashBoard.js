@@ -61,7 +61,7 @@ export default function JeevamrutDashBoard() {
                     // if (doc.data().orders[0].name != "") {
 
                     orderspush.push(doc.data().orders);
-                    if (doc.data().orders[0].farmname != "") {
+                    if (doc.data().orders[0].name != "") {
                         pushName(doc.id, orderspush);
                     }
                 })
