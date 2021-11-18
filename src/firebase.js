@@ -3,15 +3,14 @@ import "firebase/compat/auth"
 import "firebase/compat/firestore"
 
 const app = firebase.initializeApp({
-  apiKey: "AIzaSyBnfBcR77n4URrn2dv-vWnJAIiJwtQCX9M",
-  authDomain: "ityme-4f997.firebaseapp.com",
-  databaseURL: "https://ityme-4f997-default-rtdb.firebaseio.com",
-  projectId: "ityme-4f997",
-  storageBucket: "ityme-4f997.appspot.com",
-  messagingSenderId: "207933413299",
-  appId: "1:207933413299:web:1a2ddeb7cc96f810739dc6",
-  measurementId: "G-5H798PNV5Z"
+  apiKey: "AIzaSyCBC7EAQlyXLRAQHibCyfldHM-1yWfgpcM",
+  authDomain: "signal-clone-fe8ce.firebaseapp.com",
+  projectId: "signal-clone-fe8ce",
+  storageBucket: "signal-clone-fe8ce.appspot.com",
+  messagingSenderId: "570559533228",
+  appId: "1:570559533228:web:84a3bb19541ae00047cf09"
 })
+
 
 export const auth = app.auth()
 export const firestore = app.firestore()

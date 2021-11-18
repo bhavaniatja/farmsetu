@@ -22,7 +22,14 @@ function Register() {
         {
             name: ""
         }
-    ]);
+    ],
+    );
+    // const [produceData, setProduceData] = useState([
+    //     {
+    //         farmname: ""
+    //     }
+    // ],
+    // );
     useEffect(() => {
         if (user) {
             createUserDocument(user, name);
@@ -47,7 +54,7 @@ function Register() {
                 createdAt: new Date(),
             })
             orderRef.set({
-                orders: orders
+                orders: orders,
             })
             b2bRef.set({
                 orders: orders
