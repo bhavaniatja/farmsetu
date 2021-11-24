@@ -121,7 +121,7 @@ export default function JeevamrutDashBoard() {
                                                         {finpushorders.quantity}
                                                     </TableCell>
                                                     <TableCell align="right">
-                                                        {finpushorders.farmName}
+                                                        {finpushorders.farmname}
                                                     </TableCell>
                                                 </TableRow>
                                             </TableBody>
@@ -150,7 +150,7 @@ export default function JeevamrutDashBoard() {
                             <tr key={key}>
                                 <td>{finpush.name}</td>
                                 <td>{finpushorders.name}</td>
-                                <td>{finpushorders.farmName}</td>
+                                <td>{finpushorders.farmname}</td>
                                 <td>{finpushorders.quantity}</td>
                                 <td>{finpushorders.createdAt.toString()}</td>
                             </tr>

@@ -12,6 +12,8 @@ import JeevamrutDashBoard from "./JeevamrutDashBoard";
 import B2bDashBoard from "./B2bDashBoard";
 import B2bOrdersDashBoard from "./B2bOrdersDashBoard";
 import B2bRegister from "./B2bRegister";
+import DetailOrderList from "./DetailOrderList";
+import OrderDetail from './OrderDetail';
 function App() {
   function DashCheck() {
     const [user] = useAuthState(auth);
@@ -30,6 +32,8 @@ function App() {
           <Route exact path="/b2bdb" component={B2bDashBoard} />
           <Route exact path="/b2bregister" component={B2bRegister} />
           <Route exact path="/b2borders" component={B2bOrdersDashBoard} />
+          <Route exact path="/detailorder" component={DetailOrderList} />
+          <Route exact path="/detailorder/:productId" component={OrderDetail} />
           <Route exact path="/dashboard">
             <DashCheck />
           </Route>

@@ -8,7 +8,7 @@ import { IconButton } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 
 function B2bDialog(props) {
-    const { onClose, dataname, open, handleSubmit } = props;
+    const { onClose, dataname, open, handleSubmit, dataid } = props;
     const [quantity, setQuantity] = useState("");
 
     const handleClose = () => {
@@ -38,7 +38,7 @@ function B2bDialog(props) {
             <TextField label="Enter Quantity(KGs)" name={dataname}
                 onChange={(ev) => setQuantity(ev.target.value)}
                 variant="filled" color="success" margin="normal" />
-            <Button variant='contained' color="primary" onClick={(ev) => handleSubmit(ev, dataname, quantity)} >Submit</Button>
+            <Button variant='contained' color="primary" onClick={(ev) => handleSubmit(ev, dataname, quantity, dataid)} >Submit</Button>
         </Dialog>
     );
 }

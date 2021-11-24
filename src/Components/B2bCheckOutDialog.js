@@ -13,19 +13,19 @@ import Paper from '@mui/material/Paper';
 import { IconButton } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import DeleteIcon from '@mui/icons-material/Delete';
-function CheckOutDialog(props) {
+function B2bCheckOutDialog(props) {
     const { checkopen, orders, handleOk, handleClose, handleDelete } = props;
     console.log(orders);
     // const handleClose = () => {
     //     onClose();
     // };
     const handleCancel = () => {
-        alert("You didn't Submit your Order!")
+        alert("You didn't Confirm your Order!")
         handleClose();
     };
     return (
         <Dialog open={checkopen}>
-            <DialogTitle>Your Submissions:
+            <DialogTitle>Your Orders:
                 <IconButton
                     aria-label="close"
                     onClick={handleCancel}
@@ -45,7 +45,6 @@ function CheckOutDialog(props) {
                         <TableRow>
                             <TableCell>Commodity</TableCell>
                             <TableCell align="right">Quantity</TableCell>
-                            <TableCell align="right">Farm Name</TableCell>
                             <TableCell align="right">Delete</TableCell>
                         </TableRow>
                     </TableHead>
@@ -57,9 +56,6 @@ function CheckOutDialog(props) {
                                 </TableCell>
                                 <TableCell align="right">
                                     {orders.quantity}
-                                </TableCell>
-                                <TableCell align="right">
-                                    {orders.farmName}
                                 </TableCell>
                                 <TableCell align="right">
                                     <IconButton
@@ -77,4 +73,4 @@ function CheckOutDialog(props) {
         </Dialog>
     );
 }
-export default CheckOutDialog;
+export default B2bCheckOutDialog;

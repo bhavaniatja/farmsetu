@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useHistory, Link } from "react-router-dom";
-import { auth } from "../firebase";
+import { auth, firestore } from "../firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 import AppBar from '@mui/material/AppBar';
 import Button from '@mui/material/Button';
@@ -26,10 +26,24 @@ function Login() {
       alert(err.message);
     }
   };
-  useEffect(() => {
+
+  useEffect(async () => {
+    let checkuser = false;
     if (user) {
-      history.replace("/farmerdb");
-      console.log(JSON.stringify(user.uid));
+      await firestore.collection('users').get().then(querySnapshot => {
+        console.log('Total Commodities ', querySnapshot.size);
+        querySnapshot.forEach(documentSnapshot => {
+          if (user.uid === documentSnapshot.id) {
+            checkuser = true;
+          }
+        })
+      });
+      if (checkuser) {
+        history.replace("/farmerdb");
+      }
+      else {
+        history.replace("/b2bdb");
+      }
     }
   }, [user]);
   return (

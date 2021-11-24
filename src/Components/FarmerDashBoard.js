@@ -60,7 +60,7 @@ function FarmerDashBoard() {
                 name: namez,
                 productid: dataid,
                 quantity: quantity,
-                farmName: farmName,
+                farmname: farmName,
                 createdAt: new Intl.DateTimeFormat('en-US', { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit' }).format(timestamp)
             }
             setOrders([...orders, newOrder]);
@@ -74,10 +74,6 @@ function FarmerDashBoard() {
             alert("Cart is Empty");
         }
         else {
-            await firestore.collection('farmerorders').doc(user.uid)
-                .update({
-                    orders: orders
-                });
             setCheckOpen(true);
         }
     }
@@ -90,15 +86,26 @@ function FarmerDashBoard() {
 
     const handleClose = () => {
         setOpen(false);
-    };
-    const handleOk = () => {
         setCheckOpen(false);
-        setOrders([]);
-        alert("Submission Sent Successfully:)");
+    };
+    const handleOk = async () => {
+        setCheckOpen(false);
+        if (orders[0] == null) {
+            alert("Cart is Empty");
+        }
+        else {
+            await firestore.collection('farmerorders').doc(user.uid)
+                .update({
+                    orders: orders
+                });
+            setOrders([]);
+            alert("Submission Sent Successfully:)");
+        }
     };
     const handleDelete = (dataid) => () => {
         setOrders((orders) => orders.filter((order) => order.productid !== dataid));
-        console.log(orders);
+        console.log("Deleted");
+        console.log(dataid);
     };
 
     return (
@@ -171,7 +178,9 @@ function FarmerDashBoard() {
                 />
                 <CheckOutDialog
                     checkopen={checkopen}
+                    handleDelete={handleDelete}
                     handleOk={handleOk}
+                    handleClose={handleClose}
                     orders={orders}
                 />
             </Container>
