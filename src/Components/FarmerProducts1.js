@@ -91,7 +91,7 @@ function FarmerProducts1() {
     const [user] = useAuthState(auth);
     const history = useHistory();
     const signOut = () => {
-        auth.signOut().then()
+        auth.signOut();
         history.replace("/login");
     }
 
@@ -105,7 +105,6 @@ function FarmerProducts1() {
     ]
     const [data, setData] = useState([]); //table data
     const [productData, setProductData] = useState([]);
-    const [produceData, setProduceData] = useState([]);
     const [farmName, setFarmName] = useState("");
     const [comments, setComments] = useState("");
 
@@ -126,45 +125,24 @@ function FarmerProducts1() {
         // else {
         //     const unsubscribe = await firestore.collection('farmerorders').doc(user.uid).get().then(
         //         snapshot => {
-        //             if (snapshot.data().orders[0].name != "") {
-        //                 setProductData([...produceData, ...snapshot.data().orders]);
-        //                 console.log(snapshot.data().orders);
-        //             }
+        //             // if (snapshot.data().orders[0].name != "") {
+        //             let by = {};
+        //             by = snapshot.data().orders;
+        //             setProductData([...productData, ...by]);
+        //             console.log(productData);
+        //             // }
         //         }
         //     );
-
         // }
         setData(rows);
         // return unsubscribe;
 
     }, []);
-    const putHarvestData = () => {
-        console.log(farmName + ":" + comments);
-        const testtamp = value;
-        const timestamp = Date.now();
-        let finalpush = {
-            harvestperiod: new Intl.DateTimeFormat('en-US',
-                { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit' }).format(testtamp),
-            farmname: farmName,
-            comments: comments,
-            createdAt: new Intl.DateTimeFormat('en-US',
-                { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit' }).format(timestamp)
-        };
-
-        sendTo(finalpush);
-
-    }
-    const sendTo = (finalpush) => {
-
-
-        setProduceData(prev => [...prev, finalpush]);
-        console.log(produceData);
-    }
     const checkOut = async () => {
         // await putHarvestData();
-        console.log(productData[0]);
+        console.log(productData);
         await firestore.collection('farmerorders').doc(user.uid)
-            .update({
+            .push().set({
                 orders: productData
             });
         setProductData([]);
@@ -180,7 +158,7 @@ function FarmerProducts1() {
         const timestamp = Date.now();
         data.forEach(d => {
             if (d.id === newData.id) {
-                let newOrder = {
+                let newOrder = [{
                     name: newData.productName,
                     productid: newData.id,
                     quantity: newData.quantity,
@@ -193,9 +171,10 @@ function FarmerProducts1() {
                     comments: comments,
                     createdAt: new Intl.DateTimeFormat('en-US',
                         { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit' }).format(timestamp),
-                };
-                // console.log(newOrder);
+                }];
+
                 setProductData([...productData, newOrder]);
+                console.log(productData);
             }
         }
         )
